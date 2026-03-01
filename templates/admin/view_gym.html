@@ -1,0 +1,88 @@
+{% extends "admin/header.html" %}
+{% load static %}
+{% block title %}Home - My Site{% endblock %}
+
+
+{% block content %}
+<head>
+   <style>
+      table, th, td {
+   border: 1px solid rgba(255, 255, 255, 0.922);
+   padding: 25px;
+   color: aliceblue;
+ }
+
+ 
+ </style>
+<!-- Icon Font Stylesheet -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body background="{% static 'img\hero\hero-1.jpg' %}" style="background-color:#4346d7a2;color: rgb(255, 255, 255); ">
+<div>
+   <br>
+   <br>
+   <br>
+   <br>
+<center>
+   <h1 style="color: aliceblue;">GYM DETAILS</h1>
+   <BR>
+      <BR>
+         <div class="row">
+<div class="col-2">
+
+</div>
+<div class="col-8">
+   <table class="table table-bordered bg-secondary " >
+      <thead>
+        <tr>
+          <th scope="col" class="col-lg-2">GYM ID</th>
+          <th scope="col" class="col-lg-3">Gym Name</th>
+          <th scope="col" class="col-lg-6">Place</th>
+          <th scope="col" class="col-lg-1">View</th>
+        </tr>
+      </thead>
+      <tbody>
+         {% for i in data %}
+        <tr>
+          
+         
+          <td>{{ i.gmail }}	</td>
+       
+       
+          <td>{{ i.gym_name }}	</td>
+  <td>
+   {{ i.place }}	
+  </td>
+          <td>
+          
+            <form action="{% url 'Admin:view_gym2'  %}" method="get">
+                <button type="submit" class="btn btn-primary" value="{{ i.gmail }}" name="btn1"><i class="far fa-eye"></i></button>
+            </form>
+            <br>
+
+           <!--<form action="" method="get">
+            <button type="submit" class="btn btn-success" value="" name="btn1"><i class="fas fa-edit"></i></button>
+            </form>
+--> 
+          </td>
+          
+        </tr>
+
+{% endfor %}
+      </tbody>
+    </table>
+</div>
+<div class="col-2">
+
+</div>
+            
+         </div>
+  
+</center>
+</div>
+
+</body>
+
+
+{% endblock %}

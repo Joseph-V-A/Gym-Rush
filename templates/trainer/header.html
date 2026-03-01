@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Gym Template">
+    <meta name="keywords" content="Gym, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>
+        {% block title %}
+                    
+        {% endblock %}
+    </title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/barfiller.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">\
+<style>
+</style>
+{%  block head %}
+
+
+{% endblock %}
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Offcanvas Menu Section Begin -->
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="canvas-close">
+            <i class="fa fa-close"></i>
+        </div>
+        <div class="canvas-search search-switch">
+            <i class="fa fa-search"></i>
+        </div>
+        <nav class="canvas-menu mobile-menu">
+            <ul>
+                <li><a href="{% url 'instructor:home' %}">Home</a></li>
+                <li><a href="{% url 'instructor:profile' %}">Profile</a></li>
+                <li><a href="{% url 'instructor:viewgyms' %}">Gym</a></li>
+                <li><a href="{% url 'instructor:attendence' %}">Attendence and Leave</a></li>
+                <li><a href="{% url 'instructor:members' %}">Members</a></li>
+                <li><a href="{% url 'instructor:Salary' %}">Salary</a></li>
+                <li><a href="{% url 'instructor:feedback' %}">Feedbacks</a></li>
+                <li><a href="{% url 'Guest:home' %}">Logout</a></li>
+            </ul>
+        </nav>
+        <div id="mobile-menu-wrap"></div>
+        <div class="canvas-social">
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-youtube-play"></i></a>
+            <a href="#"><i class="fa fa-instagram"></i></a>
+        </div>
+    </div>
+    <!-- Offcanvas Menu Section End -->
+
+    <!-- Header Section Begin -->
+    <header class="header-section">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="logo">
+                        <a href="{% url 'instructor:home' %}">
+                            <img src="{% static 'img/logo.png' %}" alt="">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-auto color-primary">
+                    <nav class="nav-menu">
+                        <ul>
+                            <li><a href="{% url 'instructor:home' %}">Home</a></li>
+                            <li><a href="{% url 'instructor:profile' %}">Profile</a></li>
+                            <li><a href="{% url 'instructor:viewgyms' %}">Gym</a></li>
+                            <li><a href="{% url 'instructor:attendence' %}">Attendence and Leave</a></li>
+                            <li><a href="{% url 'instructor:members' %}">Members</a></li>
+                            <li><a href="{% url 'instructor:Salary' %}">Salary</a></li>
+                            <li><a href="{% url 'instructor:feedback' %}">Feedbacks</a></li>
+                            <li><a href="{% url 'Guest:home' %}">Logout</a></li>
+                        
+                        </ul>
+                    </nav>
+                </div>
+             
+            </div>
+            <div class="canvas-open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    <div>
+
+        {% block content %}
+                    
+        {% endblock %}
+        
+
+    </div>
+    <!-- Js Plugins -->
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/masonry.pkgd.min.js' %}"></script>
+    <script src="{% static 'js/jquery.barfiller.js' %}"></script>
+    <script src="{% static 'js/jquery.slicknav.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+
+
+
+</body>
+
+</html>

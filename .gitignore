@@ -1,0 +1,29 @@
+# Environment secrets - NEVER commit this
+.env
+
+# Database - contains real user data
+db.sqlite3
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pycache
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Media uploads (user-uploaded files)
+uploads/
+media/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/

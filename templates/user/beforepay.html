@@ -1,0 +1,237 @@
+{% extends "user/header.html" %}
+{% load static %}
+{% block title %}Home - My Site{% endblock %}
+{% block head %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<title>Equipments Management System</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+<style>
+
+
+body {
+
+background: url("{% static 'img/hero/hero-1.jpg' %}");
+
+}
+
+
+
+
+
+
+body{
+
+background-color: #000;
+}
+
+.padding{
+
+padding: 2rem !important;
+}
+
+.card {
+  margin-bottom: 30px;
+  border: none;
+  -webkit-box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22);
+  -moz-box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22);
+  box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22);
+}
+
+.card-header {
+  background-color: #fff;
+  border-bottom: 1px solid #e6e6f2;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h5 {
+  font-size: 15px;
+  line-height: 26px;
+  color: #3d405c;
+  margin: 0px 0px 15px 0px;
+  font-family: 'Circular Std Medium';
+}
+
+.text-dark {
+  color: #3d405c !important;
+}
+
+
+
+
+
+
+</style>
+
+{% endblock %}
+{% block content %}
+<div>
+   <br>
+   <br>
+   <br>
+   <br>
+<center>
+    <div class=" col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 padding">
+        <div class="card">
+        <div class="card-header p-4">
+        <h1 class="pt-2 d-inline-block" href="" data-abc="true">Gym Booking</h1>
+        <div class="float-right"> <h3 class="mb-0">Invoice #BBB10234</h3>
+        Date: {{ date }}</div>
+        </div>
+        <div class="card-body">
+        <div class="row mb-4">
+        <div class="col-sm-6">
+        <h5 class="mb-3">From:</h5>
+        <h3 class="text-dark mb-1">{{ user.name }}</h3>
+        <div>Email: {{ user.gmail }}</div>
+        </div>
+        <div class="col-sm-6 ">
+        <h5 class="mb-3">To:</h5>
+        <h3 class="text-dark mb-1">{{ gym.gym_name }}</h3>
+        <div>{{ gym.place }}</div>
+        <div>Email: {{ gym.gmail }}</div>
+        </div>
+        </div>
+        <div class="table-responsive-sm">
+        <table class="table table-striped">
+        <thead>
+        <tr>
+        <th class="center">#</th>
+        <th>Plan</th>
+        <th>Start Date</th>
+        <th class="right">End Date</th>
+        <th class="right">Time Slot</th>
+=        <th class="right">Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td class="center">1</td>
+        <td class="left strong">{{ billlist.0 }}</td>
+        <td class="left">{{ billlist.2 }}</td>
+        <td class="right">{{ billlist.3 }}</td>
+        <td class="right">
+          {% if billlist.4 %}
+          <select id="dropdown" class="form-control">
+            <option value="0" selected>Select an option</option>
+            {% for item in billlist.4 %}
+              <option value="{{ item.slotid }}">{{ item.startTime }} to {{ item.endTime }}</option>
+            {% endfor %}
+          </select>
+          {% else %}
+          This Feacture is not applicable in this plan
+          {% endif %}
+        </td>
+        <td class="center">{{ billlist.1 }}</td>
+        </tr>
+        </tbody>
+        </table>
+        </div>
+        <div class="row">
+        <div class="col-lg-4 col-sm-5">
+        </div>
+        <div class="col-lg-4 col-sm-5 ml-auto">
+        <table class="table table-clear">
+        <tbody>
+        
+       
+        <tr>
+        <td class="left">
+        <strong class="text-dark">Total</strong>
+         </td>
+        <td class="right">
+        <strong class="text-dark">{{ billlist.1 }}</strong>
+        </td>
+        </tr>
+        </tbody>
+        </table>
+
+        </div>
+        </div>
+        <div class="center">
+{% if billlist.4 %}
+
+
+<form action="{% url 'User:Gyms3' %}" method="post" onsubmit="return validateForm()">
+  <input value="Yearly" name="type" hidden>
+  <input name="type1" id="type1" hidden>
+  <button type="submit"  class="btn btn-primary btn-lg btn-block">Pay Now</button>
+</form>
+
+
+  {% else %}
+
+
+  <form action="{% url 'User:Gyms3' %}" method="post" onsubmit="return validateForm1()">
+    <input value="Monthly" name="type" hidden>
+    <button type="submit"  class="btn btn-primary btn-lg btn-block">Pay Now</button>
+  </form>
+
+{% endif %}
+
+
+
+          
+        </div>
+        </div>
+        <div class="card-footer bg-white">
+        <p class="mb-0">Gym Management Systems and softwares</p>
+        </div>
+        </div>
+        </div>
+</center>
+</div>
+<script>
+  function validateForm(){
+
+  
+
+let val=document.getElementById("dropdown").value
+    if(val=="0")
+    {
+      alert("pls select a time slot")
+      return false
+    }
+    else
+    {
+      if(confirm(" Do you want to confirm this slot and go to payment page"))
+      {
+        document.getElementById("type1").value=val
+        return true
+      }
+      else
+      {
+        return false
+      }
+    }
+
+  }
+
+
+  function validateForm1(){
+
+
+      if(confirm(" Do you want to confirm this slot and go to payment page"))
+      {
+        return true
+      }
+      else
+      {
+        return false
+      }
+  
+  }
+
+
+</script>
+
+
+{% endblock %}
+
+

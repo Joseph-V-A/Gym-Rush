@@ -1,0 +1,196 @@
+{% load static %}
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Gym</title>
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        .form-control {
+            width: 150%;
+            padding-left: 10%;
+            margin-left: -20%;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            position: relative;
+            overflow: hidden;
+            background-image: url('https://images.unsplash.com/photo-1623874400767-0fcdeedd0f5d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .card {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .btn {
+            width: 100%;
+        }
+
+        /* Animation for login heading */
+        h1 {
+            opacity: 0;
+            animation: fadeIn 4s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        .btn-warning{
+            background-color:#f36100 !important;
+            border-radius: 0;
+            border: 0;
+            color: white;
+            cursor: pointer;
+            
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+    <!-- Blur overlay for the background image -->
+    <div class="bg-blur"></div>
+
+    <section class="position-relative py-4 py-xl-5">
+        <div class="container">
+
+           
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-6 col-xl-4">
+                        <div class="card mb-5">
+                            <div class="card-body d-flex flex-column align-items-center" style="width: 0;">
+                                <h1 class="text-capitalize fw-semibold text-white mb-5">Login</h1>
+                                <div class="text-center">
+                                <div class="mb-3"><input class="form-control" type="email"  id="userid" placeholder="Email" ></div>
+                                <div class="mb-3"><input class="form-control" type="password" id="password"  placeholder="Password" ></div>
+                                <div class="mb-3">
+                                    <select class="form-control"  id="type" required>
+                                        <option value="" disabled selected>User Type</option>
+                                        <option value="User">MEMBER</option>
+                                        <option value="INSTRUCTOR">INSTRUCTOR</option>
+                                        <option value="GYM">GYM</option>
+                                        <option value="ADMIN">ADMIN</option>
+                                    </select>
+
+                                </div>
+                                <span class="btn">
+                                    <div class="mb-3"><button class="btn btn-warning d-block w-100"  id="submit">Login</button></div>
+                                </span>
+                                <a href="{% url 'Guest:userreg' %}"><p class="Creat">Create Account</p></a>
+                                <a href="{% url 'Guest:forgotpassword' %}"><p class="Creat">Forgot Password</p></a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+   <script>
+
+document.getElementById("submit").addEventListener("click",function(){
+
+    var userid=null
+    userid=document.getElementById("userid").value;
+    var password=null
+    password=document.getElementById("password").value;
+    var type=null
+
+
+    var dropdown = document.getElementById("type");
+    // Get the selected option
+    var selectedOption = dropdown.options[dropdown.selectedIndex];
+
+
+if(userid!="" && password!=null && selectedOption.value!="")
+{
+console.log(userid,password,selectedOption.value)
+
+
+$.ajax({url:"/login/",
+                    method: "POST",
+                   
+                      data:{
+                          
+                          "userid":userid,
+                          "password":password,
+                          "type":selectedOption.value
+ 
+        },
+        timeout: 30000,
+
+                  success:function(da){
+                         if(da.status==1){
+                           alert("Admin Login successfull!")
+                           var url = "{% url 'Admin:home' %}"
+
+                            // Redirect to the Django URL
+                            window.location.href = url;
+                         }
+                            else if(da.status==2){
+                                alert("Gym Login successfull!")
+                                var url = "{% url 'gym:home' %}"
+                           window.location.href = url;
+
+                         }
+                         else if(da.status==3){
+                           alert("Instructor Login successfull!")
+                           var url = "{% url 'instructor:home' %}"
+                           window.location.href = url;
+                       
+                         }
+                         else if(da.status==4){
+                           alert("User Login successfull!")
+                           var url = "{% url 'User:home' %}"
+                           window.location.href = url;
+                       
+                         }
+                         else{
+                           alert("Invalid login details")
+                         }
+                 
+                  },
+                  error: function (xhr, textStatus, errorThrown) {
+        console.error("AJAX request failed:", textStatus, errorThrown);
+    }
+                });
+            }
+           
+            
+
+            
+else
+{
+    alert("Enter all fields")
+}
+})
+
+
+
+   </script>
+
+</body>
+
+</html>

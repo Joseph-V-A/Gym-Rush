@@ -1,0 +1,312 @@
+{% extends "trainer/header.html" %}
+{% load static %}
+{% block title %}Home - My Site{% endblock %}
+{% block head %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<title>Equipments Management System</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Attendance Management</title>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<style>
+   body {
+      background: url("{% static 'img/hero/hero-1.jpg' %}");
+       background-color: #f8f9fa;
+       padding: 20px;
+   }
+
+   .section {
+       display: none;
+       background-color: #fff;
+       margin-bottom: 20px;
+       padding: 20px;
+       border-radius: 10px;
+       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   }
+
+   .date-selector {
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+       margin-bottom: 20px;
+   }
+
+   .attendance-form {
+       max-width: 300px;
+       margin: auto;
+   }
+
+   .attendance-form button {
+       margin-top: 10px;
+   }
+
+   .attendance-table {
+       width: 100%;
+       margin-top: 20px;
+   }
+
+   .attendance-table th, .attendance-table td {
+       text-align: center;
+   }
+
+   .leave-application {
+       max-width: 800px;
+       margin: auto;
+   }
+
+   .leave-application textarea {
+       resize: vertical;
+   }
+
+   .leave-application-list {
+       list-style-type: none;
+       padding: 0;
+   }
+
+   .leave-application-item {
+       margin-bottom: 10px;
+       padding: 10px;
+       background-color: #f8d7da; /* Light red background for better visibility */
+       border-radius: 5px;
+   }
+</style>
+{% endblock %}
+{% block content %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+   <div class="text-center">
+       <button onclick="showSection('viewStudents')" class="btn btn-primary">Make Attendance - Students</button>
+       <button onclick="showSection('makeInstructors')" class="btn btn-primary">View My Attendance</button>
+       <button onclick="showSection('viewLeave')" class="btn btn-primary"> Leave Application</button>
+   </div>
+
+   <!-- View Attendance - Students Section -->
+   <div id="viewStudents" class="section">
+       <h2>View And Mark Attendance - Students</h2>
+       <div class="attendance-form">
+           <form>
+               <div class="form-group">
+                   <label for="attendanceDateStudents">Select Date:</label>
+                   <input type="date" id="dateee" class="form-control" id="attendanceDateStudents">
+               </div>
+               <button type="button" onclick="senddate()" class="btn btn-primary btn-block">View Attendance</button>
+           </form>
+       </div>
+       <table id="attendence-table" class="table attendance-table">
+           <thead>
+               <tr>
+                   <th>Slot ID</th>
+                   <th>Date</th>
+                   <th>Name</th>
+                   <th>Student ID</th>
+                   <th>Status</th>
+                   <th>Action</th>
+               </tr>
+           </thead>
+           <tbody id="attendence-tabletbody">
+               <!-- Dynamic content for attendance status goes here -->
+               <tr>
+                  
+               </tr>
+               
+               <!-- Add more rows as needed -->
+           </tbody>
+       </table>
+   </div>
+
+   <!-- Make Attendance - Instructors Section -->
+   <div id="makeInstructors" class="section">
+       <h2>View My Attendance </h2>
+       <div class="date-selector">
+
+       </div>
+       <table class="table attendence-table">
+           <thead>
+               <tr>
+                   <th>Gym Name</th>
+                   <th>Date</th>
+                   <th>Attendance Status</th>
+               </tr>
+           </thead>
+           <tbody>
+            {% for data in data %}
+               <!-- Dynamic content for attendance status goes here -->
+               <tr>
+                <td>{{ data.Gym.gym_name }}</td>
+                <td>{{ data.date }}</td>
+                <td>
+                  {% if data.status == 1 %} present {% else %} absent {% endif %} 
+                </td>
+               </tr>
+            {% endfor %}
+               <!-- Add more rows as needed -->
+           </tbody>
+       </table>
+   </div>
+
+   <!-- View Leave Application Section -->
+   <div id="viewLeave" class="section leave-application">
+    <h2>Apply for Leave</h2>
+    <form method="post" action="{% url 'instructor:apply_leave' %}">
+        {% csrf_token %}
+        <label for="date">Date :</label><br>
+        <input type="date" name="date"  required><br>
+        <label for="subject">Subject:</label><br>
+        <input type="text" id="subject" name="subject" required><br>
+        <label for="reason">Reason:</label><br>
+        <textarea id="reason" name="reason" rows="4" required></textarea><br>
+        <button type="submit" class="btn btn-primary">Submit Leave Application</button>
+    </form><br>
+    <br>
+    <br>
+    <br>
+    <h2>View Leave Application</h2>
+    <ul class="leave-application-list">
+        {% for leave_application in leave %}
+        <li class="leave-application-item">
+            <p><strong>Subject:</strong> {{ leave_application.subject }}</p>
+            <p><strong>Reason:</strong> {{ leave_application.body }}</p>
+            <p><strong>date:</strong> {{ leave_application.date }}</p>
+            {% if leave_application.status == 0 %}
+            Pending
+            {% endif %}
+            {% if leave_application.status == 1 %}
+            Approved
+            {% endif %}
+            {% if leave_application.status == 2 %}
+            Rejected
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div id="viewLeave" class="section leave-application">
+    
+</div>
+
+
+
+</div>
+
+<!-- Bootstrap JS and Popper.js -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script>
+   function showSection(sectionId) {
+       // Hide all sections
+       document.querySelectorAll('.section').forEach(section => section.style.display = 'none');
+
+       // Show the selected section
+       document.getElementById(sectionId).style.display = 'block';
+   }
+
+
+   function senddate()
+   {
+    var date=document.getElementById("dateee").value
+ 
+if(date!="")
+{   
+
+    $.ajax({url:"/instructor/attendenceMember",
+                    method: "POST",
+                   
+                      data:{
+                          
+                          "date":date,
+ 
+        },
+        timeout: 30000,
+
+        success: function(data) {
+                // Clear the table body before appending new data
+                $('#attendence-tabletbody').empty();
+
+                // Loop through each item in the received data
+                $.each(data.data, function(index, item) {
+
+
+    // Construct table row with data
+    var checkboxHtml = '<input type="checkbox"' + (item.status == 1 ? 'checked' : '') + '>';
+    var row = '<tr>' +
+        '<td>' + item.id + '</td>' +
+        '<td>' + item.Date + '</td>' +
+        '<td>' + item.name + '</td>' +
+        '<td>' + item.gmail + '</td>' +
+        '<td>' + (item.status ? "Present" : "Absent") + '</td>' +
+        '<td>' + checkboxHtml + '</td>' +
+        '</tr>';
+    // Append row to the table body
+    $('#attendence-tabletbody').append(row);
+    //$('.attendence-table tbody').append(row);
+});
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+                
+                })
+
+                }
+
+            }
+
+
+
+
+
+// Attach event listener to checkboxes
+$('#attendence-table').on('change', 'input[type="checkbox"]', function() {
+
+alert("Marking Attendence")
+    // Get the relevant data associated with the checkbox
+    var employeeId = $(this).closest('tr').find('td:eq(0)').text(); // Assuming the employee ID is in the first column
+   
+    // Construct data to send to the server
+    var sendData = {
+        employee_id: employeeId,
+        status: this.checked ? 1 : 0 // Send 1 if checked, 0 if unchecked
+    };
+
+
+    $(this).closest('tr').find('td:eq(4)').text(this.checked ? "Present" : "Absent");
+
+    // Make AJAX request to send data to the server
+    $.ajax({
+        url: '/instructor/attendenceMember2',
+        type: 'POST',
+        data: sendData,
+        success: function(response) {
+            // Handle successful response from the server if needed
+            console.log(response);
+        },
+        error: function(xhr, status, error) {
+            // Handle error if AJAX request fails
+            console.error(xhr.responseText);
+        }
+    });
+});
+
+
+
+
+ 
+
+
+
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,325 @@
+{% extends "gym/header.html" %}
+{% load static %}
+{% block title %}Home - My Site{% endblock %}
+{% block head %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<title>Equipments Management System</title>
+
+<style>
+    body {
+        background: url("{% static 'img/hero/hero-1.jpg' %}");
+        background-color: #f8f9fa;
+        padding: 20px;
+    }
+
+    .trainers-list {
+        list-style-type: none;
+        padding: 0;
+        cursor: pointer;
+    }
+
+    .trainer-item {
+        padding: 10px;
+        border: 1px solid #dee2e6;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    .trainer-details {
+        display: none;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    #one,#two,#three,#four{
+        background-color: #fff;
+        display: none;
+    }
+    #oneone {
+        background-color: #fff;
+    }
+</style>
+
+{% endblock %}
+{% block content %}
+<br>
+<br>
+<br>
+<br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            <select class="form-select mb-3 md-3" id="select" aria-label="Default select example">
+                <option value="0" selected>Open this select menu</option>
+                <option value="1">Monthly Plan</option>
+                <option value="2">Yearly Plan</option>
+                <option value="3">Expired Monthly Plan</option>
+                <option value="4">Expired Yearly Plan</option>
+            </select>
+            <div id="oneone">
+                <br>
+                <h1> ALL SUBSCRIPTIONS </h1>
+                <br>
+                <table class="table table-striped" >
+                    <thead>
+                        <tr>
+                            <th scope="col">Book ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">User Id</th>
+                            <th scope="col">Age</th>
+                            <th scope="col">Gender</th>
+                            <th scope="col">Plan</th>
+                            <th scope="col">Book on</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        {% for i in  monthlyyearly %}
+                        <tr>
+                            <th scope="row">{{ i.Bookid }}</th>
+                            <td>{{ i.cust.name }}</td>
+                            <td>{{ i.cust.gmail }}</td>
+                            <td>{{ i.cust.age }}</td>
+                            <td>{{ i.cust.gender }}</td>
+                            <td>{% if i.plan == 1 %}
+                                Montly
+                                {% else %}
+                                Yearly
+                            {% endif %}</td>
+                            <td>{{ i.bookTime }}</td>
+                            <td>
+                            <form action="{% url 'gym:members2' %}" method="post">
+                                <input type="hidden" name="id" value="{{ i.Bookid }}">
+                            <button type="submit" class="btn btn-primary">View More</button>
+                        </form></td>                       
+                     </tr>
+                        {% endfor %}
+                        <!-- More rows can be added here -->
+                    </tbody>
+    
+                </table>
+            </div>
+            <div id="one">
+            <br>
+            <h1> Monthly Plan</h1>
+            <br>
+            <table class="table table-striped" >
+                <thead>
+                    <tr>
+                        <th scope="col">Book ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">User Id</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Plan</th>
+                        <th scope="col">Book on</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody >
+                    {% for i in  monthly %}
+                    <tr>
+                        <th scope="row">{{ i.Bookid }}</th>
+                        <td>{{ i.cust.name }}</td>
+                        <td>{{ i.cust.gmail }}</td>
+                        <td>{{ i.cust.age }}</td>
+                        <td>{{ i.cust.gender }}</td>
+                        <td>{% if i.plan == 1 %}
+                            Montly
+                            {% else %}
+                            Yearly
+                        {% endif %}</td>
+                        <td>{{ i.bookTime }}</td>
+                        <td>
+                        <form action="{% url 'gym:members2' %}" method="post">
+                            <input type="hidden" name="id" value="{{ i.Bookid }}">
+                        <button type="submit" class="btn btn-primary">View More</button>
+                    </form>  
+                </td>                  
+                </tr>
+                    {% endfor %}
+                    <!-- More rows can be added here -->
+                </tbody>
+
+            </table>
+        </div>
+        <div id="two">
+            <br>
+            <h1>  Yearly Plan</h1>
+            <br>
+            <table class="table table-striped" >
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Plan</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody >
+                    {% for i in  Yearly %}
+                    <tr>
+                        <th scope="row">{{ i.Bookid }}</th>
+                        <td>{{ i.cust.name }}</td>
+                        <td>{{ i.cust.gmail }}</td>
+                        <td>{{ i.cust.age }}</td>
+                        <td>{{ i.cust.gender }}</td>
+                        <td>{% if i.plan == 1 %}
+                            Montly
+                            {% else %}
+                            Yearly
+                        {% endif %}</td>
+                        <td>{{ i.bookTime }}</td>
+                        <td>
+                        <form action="{% url 'gym:members2' %}" method="post">
+                            <input type="hidden" name="id" value="{{ i.Bookid }}">
+                        <button type="submit" class="btn btn-primary">View More</button>
+                    </form>     </td>               </tr>
+                    {% endfor %}
+                    <!-- More rows can be added here -->
+                </tbody>
+
+            </table>
+        </div>
+        <div id="three">
+            <br>
+            <h1> Expired Monthly Plan</h1>
+            <br>
+            <table class="table table-striped" >
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Plan</th>
+                        <th scope="col">Book Date</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody >
+                    {% for i in  monthlyExp %}
+                    <tr>
+                        <th scope="row">{{ i.Bookid }}</th>
+                        <td>{{ i.cust.name }}</td>
+                        <td>{{ i.cust.age }}</td>               
+                        <td>{{ i.cust.gender }}</td>
+                        <td>{% if i.plan == 1 %}
+                            Montly
+                            {% else %}
+                            Yearly
+                        {% endif %}</td>
+                        <td>{{ i.bookTime }}</td>
+                        <td>
+                            <form action="{% url 'gym:members2' %}" method="post">
+                                <input type="hidden" name="id" value="{{ i.Bookid }}">
+                            <button type="submit" class="btn btn-primary">View More</button>
+                        </form>
+                        </td>
+                       
+                        </tr>
+                    {% endfor %}
+                    <!-- More rows can be added here -->
+                </tbody>
+
+            </table>
+        </div>
+        <div id="four">
+            <br>
+<h1> Expired Yearly Plan</h1>
+<br>
+            <table class="table table-striped" >
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Plan</th>
+                        <th scope="col">Booked On</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody >
+                    {% for i in  YearlyExp %}
+                    <tr>
+                        <th scope="row">{{ i.Bookid }}</th>
+                        <td>{{ i.cust.name }}</td>
+                        <td>{{ i.cust.age }}</td>
+                        
+                        <td>{{ i.cust.gender }}</td>
+                        <td>{% if i.plan == 1 %}
+                            Montly
+                            {% else %}
+                            Yearly
+                        {% endif %}</td>
+                        <td>{{ i.bookTime }}</td>
+                        <td>
+                        <form action="{% url 'gym:members2' %}" method="post">
+                            <input type="hidden" name="id" value="{{ i.Bookid }}">
+                        <button type="submit" class="btn btn-primary">View More</button>
+                    </form>            </td>        </tr>
+                    {% endfor %}
+                    <!-- More rows can be added here -->
+                </tbody>
+
+            </table>
+        </div>
+        </div>
+    </div>
+</div>
+<script>
+document.getElementById("select").addEventListener("change",function()
+{
+
+    val=document.getElementById("select").value
+    if(val=="0")
+    {
+        document.getElementById("oneone").style.display="block"
+        document.getElementById("one").style.display="none"
+        document.getElementById("two").style.display="none"
+        document.getElementById("three").style.display="none"
+        document.getElementById("four").style.display="none"
+    }
+    if(val=="1")
+    {
+        document.getElementById("oneone").style.display="none"
+        document.getElementById("one").style.display="block"
+        document.getElementById("two").style.display="none"
+        document.getElementById("three").style.display="none"
+        document.getElementById("four").style.display="none"
+    }
+    if(val=="2")
+    {
+        document.getElementById("oneone").style.display="none"
+        document.getElementById("one").style.display="none"
+        document.getElementById("two").style.display="block"
+        document.getElementById("three").style.display="none"
+        document.getElementById("four").style.display="none"
+    }
+    if(val=="3")
+    {
+        document.getElementById("oneone").style.display="none"
+        document.getElementById("one").style.display="none"
+        document.getElementById("two").style.display="none"
+        document.getElementById("three").style.display="block"
+        document.getElementById("four").style.display="none"
+    }
+    if(val=="4")
+    {
+        document.getElementById("oneone").style.display="none"
+        document.getElementById("one").style.display="none"
+        document.getElementById("two").style.display="none"
+        document.getElementById("three").style.display="none"
+        document.getElementById("four").style.display="block"
+    }
+
+})
+</script>
+{% endblock %}

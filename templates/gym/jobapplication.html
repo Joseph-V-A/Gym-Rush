@@ -1,0 +1,154 @@
+{% extends "gym/header.html" %}
+{% load static %}
+{% block title %}Home - My Site{% endblock %}
+{% block head %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<title>Equipments Management System</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+<style>
+
+
+body {
+
+background: url("{% static 'img/hero/hero-1.jpg' %}");
+
+}
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="email"], input[type="file"], select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #fff;
+        }
+        .accept-btn {
+            background-color: #4CAF50;
+        }
+        .reject-btn {
+            background-color: #f44336;
+            margin-left: 10px;
+        }
+        .hidden {
+            display: none;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+
+</style>
+
+{% endblock %}
+{% block content %}
+<div>
+   <br>
+   <br>
+   <br>
+   <br>
+<center>
+   <h1 style="color: aliceblue;">Job Application</h1>
+   <br>
+   <br>
+   <div class="container">
+
+          <label for="name">Name:</label>
+          <input type="text" id="name" value="{{ on.instructor.name }}" readonly>
+
+          <label for="gender">Gender:</label>
+          <input type="text" id="name" value="{{ on.instructor.gender }}" readonly>
+
+          <label for="cv">View CV:</label>
+          {% if on.instructor.cv_and_documents %}
+<a href="{{ on.instructor.cv_and_documents.url }}"><H5>View Document</H5></a>            
+          {% endif %}
+
+
+
+          <label for="gmail">Mail :</label>
+          <input type="email" id="gmail" value="{{ on.instructor.gmail }}" readonly>
+
+          <button type="button" class="accept-btn" onclick="showAcceptFields()">Accept</button>
+          <button type="button" class="reject-btn" onclick="showRejectFields()">Reject</button>
+          <form id="jobApplicationForm" action="{% url 'gym:ApplicationAccept1' %}" method="post">
+            <input type="hidden" name="id" value="{{ on.id }}">
+          <div id="acceptFields" class="hidden">
+              <label for="salary">Salary:</label>
+              <input type="text" id="salary" name="salary" required>
+
+              <label for="comment">Comment:</label>
+              <textarea id="comment" name="comment" required></textarea>
+              <br>
+              <input type="submit">
+          </div>
+         </form>
+         <form id="jobApplicationForm" action="{% url 'gym:ApplicationReject1' %}" method="post">
+            <input type="hidden" name="id" value="{{ on.id }}">
+          <div id="rejectFields" class="hidden">
+              <label for="reason">Reason for Rejection:</label>
+              <textarea id="reason" name="reason" required></textarea>
+              <br>
+              <input type="submit">
+          </div>
+         </form>
+          
+      
+  </div>
+
+  <script>
+      function showAcceptFields() {
+          document.getElementById("acceptFields").classList.remove("hidden");
+          document.getElementById("rejectFields").classList.add("hidden");
+      }
+
+      function showRejectFields() {
+          document.getElementById("rejectFields").classList.remove("hidden");
+          document.getElementById("acceptFields").classList.add("hidden");
+      }
+  </script>
+
+</center>
+</div>
+
+
+
+{% endblock %}

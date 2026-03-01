@@ -1,0 +1,107 @@
+{% extends 'index.html' %}
+{% block content %}
+<style>
+  body {
+
+
+background-color: black;
+
+}
+  /* Styling for OTP form */
+  .otp-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+
+  .otp-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .otp-form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .otp-form label {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .otp-form input[type="text"] {
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+  }
+
+  .otp-form button[type="submit"] {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .otp-form button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+</style>
+<br><br><br><br><br><br><br><br>
+<div class="container">
+  <input type="text" id="otpp" value="{{ otp }}" hidden>
+  <input type="text" id="id" value="{{ id }}" hidden>
+  <input type="text" id="type" value="{{ type }}" hidden>
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="otp-container">
+        <h2>Enter OTP</h2>
+         <label for="otp">OTP:</label>
+          <input type="text" id="otp" name="otp" required>
+          <button type="submit">Submit</button>
+      </div>
+    </div>
+  </div>
+</div><br><br><br><br><br><br><br><br>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const submitButton = document.querySelector('button[type="submit"]');
+    const otpInput = document.getElementById("otp");
+    
+    const otpValue = document.getElementById("otpp").value;
+  
+    submitButton.addEventListener("click", function(event) {
+      event.preventDefault();
+      const enteredOTP = otpInput.value.trim();
+  
+      if (enteredOTP === otpValue) {
+        alert("Verification Success.");
+
+        const redirectUrl = `/otpp1`;
+        window.location.href = redirectUrl;
+      } else {
+        alert("Invalid OTP. Please try again.");
+        if(confirm("Do you want to continue or cancel?"))
+        {
+          alert("Pls Enter otp again")
+        }
+        else
+        {
+        const redirectUrl = `/otpp2`;
+        window.location.href = redirectUrl;
+      }
+      }
+    });
+  });
+  
+  
+</script>
+{% endblock %}

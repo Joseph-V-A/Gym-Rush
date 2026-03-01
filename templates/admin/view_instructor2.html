@@ -1,0 +1,81 @@
+{% extends "admin/header.html" %}
+{% load static %}
+{% block title %}Home - My Site{% endblock %}
+
+{% block content %}
+<head>
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+   <title>Gym Details</title>
+</head>
+<body background="{% static 'img\hero\hero-1.jpg' %}" style="background-color:#4346d7a2;color: rgb(255, 255, 255); ">
+  <br>
+  <br>
+  <br>
+  <br>
+      <div class="container mt-7 border">
+        <center><h1 class="mt-5">Gym Details</h1></center>
+        <br>
+        <br>
+        <div class="card">
+          <div class="card-body fs-5">
+    
+            <dl class="row">
+               
+              <dt class="col-sm-6 ">Gym Name:</dt>
+              <dd class="col-sm-6">{{ gym.gym_name }}</dd>
+    
+              <dt class="col-sm-6">Place:</dt>
+              <dd class="col-sm-6">{{ gym.place }}</dd>
+    
+              <dt class="col-sm-6">Owner Name:</dt>
+              <dd class="col-sm-6">{{ gym.owner_name }}</dd>
+    
+              <dt class="col-sm-6">Instruments:</dt>
+              <dd class="col-sm-6">{{ gym.instruments }}</dd>
+    
+              <dt class="col-sm-6">Number of Instructors:</dt>
+              <dd class="col-sm-6">{{ gym.no_of_instructors }}</dd>
+    
+              <dt class="col-sm-6">Gmail:</dt>
+              <dd class="col-sm-6">{{ gym.gmail }}</dd>
+    
+              <dt class="col-sm-6">Status:</dt>
+              <dd class="col-sm-6">
+{% if gym.status %}
+<form action="{% url 'Admin:view_gym2'  %}" method="post">
+   <input type="text" style="display: none;" name="block" value="{{ gym.gmail }}">
+   <button type="submit" class="btn btn-danger">Block</button>
+</form>
+{% else %}
+<form action="{% url 'Admin:view_gym2'  %}" method="post">
+   <input type="text" style="display: none;" name="unblock" value="{{ gym.gmail }}">
+   <button type="submit" name="success" class="btn btn-success">UnBlock</button>
+</form>
+{% endif %}
+              </dd>
+         <dt class="col-sm-6">Current Instructors:</dt>
+            <dd class="col-sm-6"> </dd>
+                <div class="row">
+                    {% for i in inst %}
+                    <dd class="col-sm-6"></dd>
+                        <dd class="col-sm-6">Name- {{ i.name }}   -({{ i.id }})</dd>
+                     
+                    {% endfor %}
+                </div>
+           
+          </div>
+        </div>
+    
+      </div>
+    
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+      <!-- Add any additional scripts if needed -->
+  
+
+
+
+</body>
+
+
+{% endblock %}

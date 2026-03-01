@@ -1,0 +1,189 @@
+{% extends "gym/header.html" %}
+{% load static %}
+{% block title %}Home - My Site{% endblock %}
+{% block head %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<title>Equipments Management System</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+<style>
+
+
+body {
+
+background: url("{% static 'img/hero/hero-1.jpg' %}");
+
+}
+.container {
+            margin-top: 50px;
+        }
+
+        .slot-table {
+            margin-top: 20px;
+        }
+
+</style>
+
+{% endblock %}
+{% block content %}
+<div>
+   <br>
+   <br>
+   <br>
+   <br>
+   <div class="container bg-light">
+      <h2>Slot Adding System</h2>
+
+      <!-- Slot Adding Form -->
+      <form id="slotForm" action="{% url 'gym:slots' %}" method="post" autocomplete="off">
+        <div class="form-row">
+            <div class="col-md-2">
+                <label for="startTime">Start Time:</label>
+                <input type="time" class="form-control" id="startTime" name="startTime" required>
+            </div>
+            <div class="col-md-2">
+                <label for="endTime">End Time:</label>
+                <input type="time" class="form-control" id="endTime" name="endTime" required>
+            </div>
+            <div class="col-md-4">
+                <label for="instructorInCharge">Instructor In Charge:</label>
+                <select class="form-control" id="instructorInCharge" name="instructor" required>
+                    <option value="Select">select</option>
+                    {% for user in job %}
+                    <option value="{{ user.employe.gmail }}">{{ user.employe.name }}</option>
+                    {% endfor %}
+                </select>             
+            </div>
+            <div class="col-md-4">
+                <label for="instructorSubstitution">Instructor Substitution:</label>
+                <select class="form-control" id="instructorSubstitution" name="Substitution" required>
+                    <option value="Select" selected>select</option>
+                    {% for user in job %}
+                    <option value="{{ user.employe.gmail }}">{{ user.employe.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div id="ididid">
+
+        </div>
+        <br>
+        <center><input  type="submit" class="btn btn-primary mt-3 ml-auto" value="Add Slot">
+            <input  type="reset" class="btn btn-primary mt-3 ml-auto" value="Clear">
+            
+</center>        
+    </form>
+    
+
+      <!-- Slot Table -->
+      <div class="slot-table">
+          <h3>Slot List</h3>
+          <table class="table table-bordered">
+              <thead>
+                  <tr>
+                    <th>ID</th>
+                      <th>Start Time</th>
+                      <th>End Time</th>
+                      <th>Instructor In Charge</th>
+                      <th>Instructor Substitution</th>
+                      <th>Action</th>
+                  </tr>
+              </thead>
+              <tbody id="slotListBody">
+{% for i in slots %}
+ <tr>
+    <td>{{ i.slotid }}</td>
+    <td>{{ i.startTime }}</td>
+    <td>{{ i.endTime }}</td>
+    <td>{{ i.instructor.name }}</td>
+    <td>{{ i.Substitution.name }}</td>
+    <td>
+        <button class="btn btn-warning btn-sm" onclick="editSlot(this)">Edit</button>
+        <form action="{% url 'gym:slots'  %}" method="post">
+            <input type="text" style="display: none;" name="block" value="{{ i.slotid }}">
+            <!-- <button type="submit" class="btn btn-danger">Delete</button> -->
+         </form>
+    </td>
+ </tr>
+{% endfor %}
+              </tbody>
+          </table>
+      </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+      function addSlot() {
+          // Get values from the form
+          var startTime = document.getElementById('startTime').value;
+          var endTime = document.getElementById('endTime').value;
+          var instructorInCharge = document.getElementById('instructorInCharge').value;
+          var instructorSubstitution = document.getElementById('instructorSubstitution').value;
+
+          // Create a new table row
+          var row = document.createElement('tr');
+          row.innerHTML = `
+
+          `;
+
+          // Add the new row to the table
+          document.getElementById('slotListBody').appendChild(row);
+
+          // Reset the form
+          document.getElementById('slotForm').reset();
+      }
+
+     
+      function editSlot(button) {
+    // Get the row
+    var row = button.parentNode.parentNode;
+
+    // Extract values from the row
+    var id = row.cells[0].textContent.trim();
+    var startTime = row.cells[1].textContent.trim();
+    var endTime = row.cells[2].textContent.trim();
+    var instructorInCharge = row.cells[3].textContent.trim();
+    var instructorSubstitution = row.cells[4].textContent.trim();
+
+    // Fill the form with the values
+    document.getElementById('startTime').value = startTime;
+    document.getElementById('endTime').value = endTime;
+    
+var innHTML="<input type='hidden' id='id' name='id' value="+id+">";
+
+document.getElementById("ididid").innerHTML=innHTML
+
+
+
+    // Set the selected value for the instructorInCharge dropdown
+    var instructorInChargeDropdown = document.getElementById('instructorInCharge');
+    var optionsInCharge = instructorInChargeDropdown.options;
+    for (var i = 0; i < optionsInCharge.length; i++) {
+        if (optionsInCharge[i].textContent === instructorInCharge) {
+            optionsInCharge[i].selected = true;
+            break;
+        }
+    }
+
+    // Set the selected value for the instructorSubstitution dropdown
+    var instructorSubstitutionDropdown = document.getElementById('instructorSubstitution');
+    var optionsSubstitution = instructorSubstitutionDropdown.options;
+    for (var j = 0; j < optionsSubstitution.length; j++) {
+        if (optionsSubstitution[j].textContent === instructorSubstitution) {
+            optionsSubstitution[j].selected = true;
+            break;
+        }
+    }
+}
+   
+  </script>
+</div>
+
+
+
+{% endblock %}

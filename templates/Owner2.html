@@ -1,0 +1,215 @@
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Gym Template">
+    <meta name="keywords" content="Gym, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Gym</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- css Styles -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/barfiller.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('https://images.unsplash.com/photo-1534258936925-c58bed479fcb?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover;
+            background-position: center;
+          
+        }
+
+        .container {
+            text-align: center;
+            padding-top: 5%;
+        }
+
+        .card {
+            max-width: 400px;
+            margin: auto;
+            background: transparent;
+            border: none;
+        }
+
+        .form-control {
+            width: 100%;
+        }
+
+        .btn {
+            width: 80%;
+            color: white;
+        }
+
+        .btn-warning {
+            background-color: #f36100 !important;
+            border-radius: 0;
+            border: 0;
+        }
+
+        .btn-warning:hover {
+            background-color: orange;
+            cursor: pointer;
+        }
+
+        .equipments {
+            font-size: large;
+            font-weight: bold;
+            justify-content: space-around center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <section class="position-relative py-4 py-xl-5">
+        <div class="container">
+            <div class="">
+                <div class="col-md-8 col-xl-6 text-center mx-auto">
+                    <h1 class="text-capitalize fw-semibold"></h1>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-6 col-xl-4">
+                    <div class="card mb-2">
+                        <div class="card-body">
+                            <label><h3><u style="color: white;">Gym Deatils</u></h3></label>
+                            <form class="text-center" id="registrationForm">
+                                <br>
+
+                                <div class="mb-3">
+                                    <input class="form-control" type="text" name="name" id="name" placeholder="GymName" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input class="form-control" type="text" name="Gymplace" id="place" placeholder="Place" required>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="equipments">
+                                        <label style="color: white;">Available Equipments:</label>
+                                        {% for item in inst %}
+                                        <br>
+                                        <label>
+                                            <input type="checkbox" class="messageCheckbox" value="{{ item.id }}" style="color: white;">
+                                            <div style="color: white;"> {{ item }} </div>
+                                        </label>
+                                        {% endfor %}
+
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <input class="form-control" type="number" id="number" name="NOT" placeholder="Number Of Trainers" required>
+                                </div>
+
+                                <div class="btn">
+                                    <div class="mb-3">
+                                        <button class="btn btn-warning d-block w-100" type="submit">REGISTER</button>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <button class="btn btn-warning d-block w-100" id="back" type="button">BACK</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/masonry.pkgd.min.js' %}"></script>
+    <script src="{% static 'js/jquery.barfiller.js' %}"></script>
+    <script src="{% static 'js/jquery.slicknav.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script>
+        var storedObject = JSON.parse(localStorage.getItem('gymdata'));
+
+
+        document.getElementById("registrationForm").addEventListener("submit", function () {
+
+            var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+
+            var checkedValues = [];
+            checkboxes.forEach(function (checkbox) {
+                checkedValues.push(checkbox.value);
+            });
+
+
+            gymname = document.getElementById("name").value;
+            place = document.getElementById("place").value;
+            empoy = document.getElementById("number").value;
+
+            $.ajax({
+                url: "/gymreg",
+                method: "POST",
+                data: {
+                    "name": storedObject["name"],
+                    "pass": storedObject["pass"],
+                    "gmail": storedObject["gmail"],
+                    "address": storedObject["address"],
+                    "gymname": gymname,
+                    "place": place,
+                    "empoy": empoy,
+                    "instruments": checkedValues
+                },
+                success: function (da) {
+                    alert(da.msg);
+                    var url = "{% url 'Guest:gymreg' %}"
+
+                    // Redirect to the Django URL
+                    window.location.href = url;
+                },
+                error: function (xhr, status, error) {
+                    console.error("AJAX request failed:", status, error);
+                    // Handle the error, e.g., display an error message to the user
+                }
+            });
+
+
+            // remove local storage
+            localStorage.removeItem('gymdata');
+
+
+            var url = "{% url 'Guest:gymreg' %}"
+
+            // Redirect to the Django URL
+            window.location.href = url;
+
+        })
+
+        document.getElementById("back").addEventListener("click", function () {
+            var url = "{% url 'Guest:gymreg' %}"
+
+            // Redirect to the Django URL
+            window.location.href = url;
+        })
+    </script>
+
+
+</body>
+
+</html>

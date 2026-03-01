@@ -1,0 +1,104 @@
+{% extends "admin/header.html" %}
+{% load static %}
+{% block title %}Home - My Site{% endblock %}
+
+
+{% block content %}
+<head>
+   <style>
+      table, th, td {
+   border: 1px solid rgba(255, 255, 255, 0.922);
+   padding: 25px;
+   color: aliceblue;
+ }
+
+ 
+ </style>
+<!-- Icon Font Stylesheet -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body background="{% static 'img\hero\hero-1.jpg' %}" style="background-color:#4346d7a2;color: rgb(255, 255, 255); ">
+<div>
+   <br>
+   <br>
+   <br>
+   <br>   <br>
+   <br>
+   <br>
+   <br>
+<center>
+   <h1 style="color: aliceblue;">INSTRUCTORS DETAILS</h1>
+   <BR>
+      <BR>
+         <div class="row">
+<div class="col-1">
+
+</div>
+<div class="col-10">
+   <table class="table table-bordered bg-secondary " >
+      <thead>
+        <tr>
+          <th scope="col" class="col-lg-2">Instructor ID</th>
+          <th scope="col" class="col-lg-3">Instructor Name</th>
+          <th scope="col" class="col-lg-2">gender</th>
+          <th scope="col" class="col-lg-1">cv_and_documents</th>
+          <th scope="col" class="col-lg-1">status</th>
+        </tr>
+      </thead>
+      <tbody>
+         {% for i in data %}
+        <tr>
+          
+         
+          <td>{{ i.gmail }}	</td>
+       
+       
+          <td>{{ i.name }}	</td>
+  <td>
+   {{ i.gender }}	
+  </td>
+  <td>
+   {% if i.cv_and_documents %}
+   <a href="{{ i.cv_and_documents.url }}" >
+      <button type="button">View</button>
+      </a>
+  
+   {% endif %}
+
+  </td>
+ 
+          <td>
+          
+            {% if i.status %}
+            <form action="{% url 'Admin:view_instructor'  %}" method="post">
+               <input type="text" style="display: none;" name="block" value="{{ i.gmail }}">
+               <button type="submit" class="btn btn-danger">Block</button>
+            </form>
+            {% else %}
+            <form action="{% url 'Admin:view_instructor'  %}" method="post">
+               <input type="text" style="display: none;" name="unblock" value="{{ i.gmail }}">
+               <button type="submit" name="success" class="btn btn-success">UnBlock</button>
+            </form>
+            {% endif %}
+          </td>
+          
+        </tr>
+
+{% endfor %}
+      </tbody>
+    </table>
+</div>
+<div class="col-1">
+
+</div>
+            
+         </div>
+  
+</center>
+</div>
+
+</body>
+
+
+{% endblock %}

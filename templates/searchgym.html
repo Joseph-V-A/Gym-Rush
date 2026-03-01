@@ -1,0 +1,285 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Gym</title>
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- {% static 'css Styles -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/barfiller.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+</head>
+<style>
+    body {
+        display: block;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        position: relative;
+        overflow: auto; /* Change overflow to auto */
+        background-image: url('https://images.unsplash.com/photo-1534258936925-c58bed479fcb?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed; /* Add this line */
+    }
+.container {
+    text-align: center;
+}
+
+.card {
+    width: 100%;
+    max-width: 400px;
+}
+
+.form-control {
+    width: 100%;
+}
+
+.btn {
+    width: 80%;
+    color: white;
+    
+}
+.btn-warning{
+    background-color:#f36100 !important;
+    border-radius: 0;
+    border: 0;
+    
+}
+.btn-warning:hover{
+    transition: 5s;
+    background-color: orange;
+    cursor: pointer;
+}
+
+</style>
+<body>
+
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="canvas-close">
+            <i class="fa fa-close"></i>
+        </div>
+        <div class="canvas-search search-switch">
+            <i class="fa fa-search"></i>
+        </div>
+        <nav class="canvas-menu mobile-menu">
+            <ul>
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="user.html">User Register</a></li>
+                <li><a href="owner.html">Gym Registartion</a></li>
+                <li><a href="trainer.html">Trainer Registartion</a></li>
+                    </ul>
+                </li>
+                <li><a href="./contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div id="mobile-menu-wrap"></div>
+        <div class="canvas-social">
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-youtube-play"></i></a>
+            <a href="#"><i class="fa fa-instagram"></i></a>
+        </div>
+    </div>
+    <!-- Offcanvas Menu Section End -->
+
+    <!-- Header Section Begin -->
+    <header class="header-section">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="logo">
+                        <a href="./index.html">
+                            <img src="{% static 'img/logo.png' %}" alt="">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <nav class="nav-menu">
+                        <ul>
+                          <li ><a href="home">Home</a></li>
+                          <li><a href="login">Login</a></li>
+                          <li><a href="userreg">User Register</a></li>
+                          <li><a href="gymreg">Gym Registartion</a></li>
+                          <li><a href="instreg">Trainer Registartion</a></li>
+                          <li><a href="viewgyms">Gyms</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3">
+                    <div class="top-option">
+                        <div class="to-social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-youtube-play"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="canvas-open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <section class="">
+        <div class="container">
+    
+
+
+  
+
+          <style>
+          
+          
+          body {
+          
+          background: url("{% static 'img/hero/hero-1.jpg' %}");
+          padding-top: 50px;
+          }
+          .search-form {
+              margin-bottom: 20px;
+            }
+            .gym-box {
+              border: 1px solid #ddd;
+              border-radius: 5px;
+              padding: 20px;
+              margin-bottom: 20px;
+              background-color: #fff;
+            }
+            .gym-box h3 {
+              margin-top: 0;
+            }
+            .gym-box p {
+              margin-bottom: 0;
+            }
+          
+          </style>
+          
+          {% block content %}
+             <br>
+             <br>
+             <br>
+             <br>
+          <center>
+             <h1 style="color: aliceblue;">GYMS AND PLANS</h1>
+             <br>
+             <br>
+             <div class="container">
+                <div class="row justify-content-center">
+                  <div class="col-md-8">
+                    <form class="search-form" method="post" action="{% url 'Guest:viewgyms' %}">
+                      <div class="form-row">
+                        <div class="col">
+                          <input type="text" name="place" value="{{ place }}" class="form-control" placeholder="Search Place">
+                        </div>
+                        <div class="col">
+                          <input type="text" value="{{ gym }}"  name="gym" class="form-control" placeholder="Search Gym">
+                        </div>
+                        <div class="col">
+                          <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+            <br>
+            <br>
+            <br>
+            <Center>
+              <div class="row">
+                {% for i in data %}
+                    <div class="col-md-3">
+                        {% if gym and place  %}
+                            <a href="{% url 'Guest:Gyms2' gym=i.gmail place=place gym2=gym %}">
+                        {% elif  place %}
+                            <a href="{% url 'Guest:Gyms2_no_gym2' gym=i.gmail place=place %}">
+                        {% elif gym %}
+                            <a href="{% url 'Guest:Gyms2_no_place' gym=i.gmail place=None gym2=gym %}">
+                        {% else %}
+                            <a href="{% url 'Guest:Gyms2_no_gym2_place' gym=i.gmail %}">
+                        {% endif %}
+                            <div class="gym-box">
+                                <h3>{{ i.gym_name }}</h3>
+                                <p>Location: {{ i.place }}</p>
+                                <p>Rating: {{ Rating }}</p>
+                            </div>
+                        </a>
+                    </div>
+                    {% cycle "" "" "" "</div><div class='row'>" %}
+                {% empty %}
+                    <div class="col-md-12">
+                        <h3 style="background-color: #fff;">Sorry Gym is not Available</h3>
+                    </div>
+                {% endfor %} 
+            </div>
+            
+              </Center>
+              </div>
+          </center>
+          {% endblock %}
+
+        </div>
+          
+          
+          
+
+
+
+
+
+
+
+
+
+
+      
+    <br>
+    <br>
+    <br>
+    <br>
+    <br><br>
+    <br>
+    <br>
+    <br>
+    <br>
+    </section>
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/masonry.pkgd.min.js' %}"></script>
+    <script src="{% static 'js/jquery.barfiller.js' %}"></script>
+    <script src="{% static 'js/jquery.slicknav.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+
+</body>
+
+</html>

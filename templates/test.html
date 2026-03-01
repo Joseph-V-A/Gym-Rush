@@ -1,0 +1,204 @@
+{% extends "gym/header.html" %}
+{% load static %}
+{% block title %}Home - My Site{% endblock %}
+{% block head %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<title>Equipments Management System</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Attendance Management</title>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<style>
+   body {
+      background: url("{% static 'img/hero/hero-1.jpg' %}");
+       background-color: #f8f9fa;
+       padding: 20px;
+   }
+
+   .section {
+       display: none;
+       background-color: #fff;
+       margin-bottom: 20px;
+       padding: 20px;
+       border-radius: 10px;
+       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   }
+
+   .date-selector {
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+       margin-bottom: 20px;
+   }
+
+   .attendance-form {
+       max-width: 300px;
+       margin: auto;
+   }
+
+   .attendance-form button {
+       margin-top: 10px;
+   }
+
+   .attendance-table {
+       width: 100%;
+       margin-top: 20px;
+   }
+
+   .attendance-table th, .attendance-table td {
+       text-align: center;
+   }
+
+   .leave-application {
+       max-width: 800px;
+       margin: auto;
+   }
+
+   .leave-application textarea {
+       resize: vertical;
+   }
+
+   .leave-application-list {
+       list-style-type: none;
+       padding: 0;
+   }
+
+   .leave-application-item {
+       margin-bottom: 10px;
+       padding: 10px;
+       background-color: #f8d7da; /* Light red background for better visibility */
+       border-radius: 5px;
+   }
+</style>
+{% endblock %}
+{% block content %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+   <div class="text-center">
+       <button onclick="showSection('viewStudents')" class="btn btn-primary">View Attendance - Students</button>
+       <button onclick="showSection('makeInstructors')" class="btn btn-primary">Make Attendance - Instructors</button>
+       <button onclick="showSection('viewLeave')" class="btn btn-primary">View Leave Application</button>
+   </div>
+
+   <!-- View Attendance - Students Section -->
+   <div id="viewStudents" class="section">
+       <h2>View Attendance - Students</h2>
+       <div class="attendance-form">
+           <form>
+               <div class="form-group">
+                   <label for="attendanceDateStudents">Select Date:</label>
+                   <input type="date" class="form-control" id="attendanceDateStudents">
+               </div>
+               <button type="submit" class="btn btn-primary btn-block">View Attendance</button>
+           </form>
+       </div>
+       <table class="table attendance-table">
+           <thead>
+               <tr>
+                   <th>Student Name</th>
+                   <th>Attendance Status</th>
+               </tr>
+           </thead>
+           <tbody>
+               <!-- Dynamic content for attendance status goes here -->
+               <tr>
+                   <td>Student 1</td>
+                   <td>Present</td>
+               </tr>
+               <tr>
+                   <td>Student 2</td>
+                   <td>Absent</td>
+               </tr>
+               <!-- Add more rows as needed -->
+           </tbody>
+       </table>
+   </div>
+
+   <!-- Make Attendance - Instructors Section -->
+   <div id="makeInstructors" class="section">
+       <h2>Make Attendance - Instructors</h2>
+       <div class="date-selector">
+           <div class="form-group">
+               <label for="attendanceDateInstructors">Select Date:</label>
+               <input type="date" class="form-control" id="attendanceDateInstructors">
+           </div>
+           <button class="btn btn-primary">Submit</button>
+       </div>
+       <table class="table attendence-table">
+           <thead>
+               <tr>
+                   <th>Instructor Name</th>
+                   <th>Attendance Status</th>
+               </tr>
+           </thead>
+           <tbody>
+               <!-- Dynamic content for attendance status goes here -->
+               <tr>
+                   <td>Instructor 1</td>
+                   <td><input type="checkbox" checked></td>
+               </tr>
+               <tr>
+                   <td>Instructor 2</td>
+                   <td><input type="checkbox"></td>
+               </tr>
+               <!-- Add more rows as needed -->
+           </tbody>
+       </table>
+   </div>
+
+   <!-- View Leave Application Section -->
+   <div id="viewLeave" class="section leave-application">
+      <h2>View Leave Application</h2>
+      <ul class="leave-application-list">
+          <!-- Example leave application items, replace with actual data -->
+          <li class="leave-application-item">
+              <h4>Leave Request - Trainer 1</h4>
+              <p><strong>Subject:</strong> Annual Leave</p>
+              <p><strong>Reason:</strong> Planning for a vacation.</p>
+              <div class="leave-application-buttons">
+                  <button class="btn btn-success btn-approve">Approve</button>
+                  <button class="btn btn-danger btn-deny">Deny</button>
+                  <button class="btn btn-info btn-approve-pay">Approve with Pay</button>
+              </div>
+          </li>
+          <li class="leave-application-item">
+              <h4>Leave Request - Trainer 2</h4>
+              <p><strong>Subject:</strong> Medical Leave</p>
+              <p><strong>Reason:</strong> Recovering from an illness.</p>
+              <div class="leave-application-buttons">
+                  <button class="btn btn-success btn-approve">Approve</button>
+                  <button class="btn btn-danger btn-deny">Deny</button>
+                  <button class="btn btn-info btn-approve-pay">Approve with Pay</button>
+              </div>
+          </li>
+          <!-- Add more leave application items as needed -->
+      </ul>
+  </div>
+
+</div>
+
+<!-- Bootstrap JS and Popper.js -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script>
+   function showSection(sectionId) {
+       // Hide all sections
+       document.querySelectorAll('.section').forEach(section => section.style.display = 'none');
+
+       // Show the selected section
+       document.getElementById(sectionId).style.display = 'block';
+   }
+</script>
+
+{% endblock %}

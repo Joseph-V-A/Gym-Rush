@@ -1,0 +1,127 @@
+{% extends "admin/header.html" %}
+{% load static %}
+{% block title %}Home - My Site{% endblock %}
+{% block head %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<title>Equipments Management System</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+<style>
+
+
+body {
+
+background: url("{% static 'img/hero/hero-1.jpg' %}");
+
+}
+
+
+</style>
+
+{% endblock %}
+{% block content %}
+<div>
+   <br>
+   <br>
+   <br>
+   <br>
+<center>
+
+
+   <div class="container mt-5" style="background-color: white;">
+
+      <div class="row">
+          <div class="col-md-6">
+              <h2>Send Message</h2>
+              <form action="{% url 'Admin:feedback' %}" method="POST">
+                  {% csrf_token %}
+                  <div class="form-group">
+                    <label for="user">UserId :</label>
+                    <input type="text" name="user_id">
+                </div>
+                  <div class="form-group">
+                      <label for="user">To :</label>
+                      <select class="form-control" id="user" name="user">
+                          <!-- Populate with users from your database -->
+                          <option value="1">Gym</option>
+                           <option value="2"> Instructor</option>
+                           <option value="3"> Member</option>
+                          <!-- Add more options dynamically -->
+                      </select>
+                  </div>
+                  <br>
+                  <div class="form-group">
+                      <label for="msg">Message:</label>
+                      <textarea class="form-control" id="msg" name="msg" rows="3"></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Send</button>
+                  <br>
+                  <br>
+                  <br>
+              </form>
+          </div>
+          <div class="col-md-6">
+              <h2> Messages</h2>
+              <ul class="list-group">
+                  <!-- Loop through received messages from your database -->
+                  {% for i in data %}
+                  <li class="list-group-item">
+                      {% if i.reciver_sts == 4 %}
+                      <strong>From:</strong> 
+                      {% if i.sender_sts == 3 %}
+                      Gym - {{ i.Gym.gym_name }}
+                    {% elif i.sender_sts == 2 %}
+                    Instructor - {{ i.instructor.name }}
+                    {% elif i.sender_sts == 1 %}
+                    Member - {{ i.user.name }}
+                  {% endif %}
+                      {% else %}
+                      <strong>To:</strong> 
+                      {% if i.reciver_sts == 3 %}
+                          Gym - {{ i.Gym.gym_name }}
+                         {% elif i.reciver_sts == 2 %}
+                         Instructor - {{ i.instructor.name }}
+                          {% elif i.reciver_sts == 1 %}
+                          Member - {{ i.user.name }}
+                      {% endif %}
+                      {% endif %} 
+                      <p>Message : {{ i.msg }} </p>
+                      <br>
+                      {% if i.sender_sts == 4 %}
+                      {% if i.view_sts %}
+                      <span class="text-success "style="color: green;">&#10004;&#10004;</span>
+                      {% else %}
+                      <span class="text-muted"style="color: green;">&#10004;</span>
+                      {% endif %}
+                      {% endif %}
+                  </li>
+              {% endfor %}
+                  <!-- Add more list items dynamically -->
+              </ul>
+          </div>
+      </div>
+  </div>
+  
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
+      integrity="sha384-AvEHAe4+CGw/yZtV0kMv8TyssBtxc18JVvQVvcjzJV6CzqKkZXJHvThii8qzqipM" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shCj5Em+GLelJQ7i8RHz/Jgo3E93hx4D4Z6j5" crossorigin="anonymous">
+  </script>
+
+
+
+
+</center>
+</div>
+
+
+
+{% endblock %}
